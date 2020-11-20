@@ -23,6 +23,8 @@
     private ElementReference button2;
     private ElementReference button3;
 
+
+    //在畫面繪製完後先focus到第二個輸入框
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -31,6 +33,10 @@
         }
     }
 
+    /// <summary>
+    /// 供按鈕來focus特定輸入框
+    /// </summary>
+    /// <param name="el"></param>
     private async void FocusTextBox(ElementReference el)
     {
         await JSRuntime.DoFocusAsync(el);
