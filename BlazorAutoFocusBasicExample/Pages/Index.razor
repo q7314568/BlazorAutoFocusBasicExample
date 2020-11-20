@@ -1,0 +1,40 @@
+﻿@page "/"
+@using BlazorAutoFocusBasicExample.Extensions
+@inject IJSRuntime  JSRuntime
+<input type="text" @ref="firstInput" placeholder="第一個輸入框" />
+<br />
+<br />
+<input type="text" @ref="secondInput" placeholder="第二個輸入框" />
+<br />
+<br />
+<input type="text" @ref="thirdInput" placeholder="第三個輸入框" />
+
+<button class="btn btn-primary" @ref="button1" @onclick="@(()=>FocusTextBox(@firstInput))">鎖定第一個</button>
+<button class="btn btn-primary" @ref="button2" @onclick="@(()=>FocusTextBox(secondInput))">鎖定第二個</button>
+<button class="btn btn-primary" @ref="button3" @onclick="@(()=>FocusTextBox(thirdInput))">鎖定第三個</button>
+
+
+@code{
+    private ElementReference firstInput;
+    private ElementReference secondInput;
+    private ElementReference thirdInput;
+
+    private ElementReference button1;
+    private ElementReference button2;
+    private ElementReference button3;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.DoFocusAsync(secondInput);
+        }
+    }
+
+    private async void FocusTextBox(ElementReference el)
+    {
+        await JSRuntime.DoFocusAsync(el);
+    }
+
+}
+
